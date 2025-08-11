@@ -1,0 +1,9 @@
+TMP="$1"
+if [ -z "$TMP" ]; then TMP="./tmp"; fi
+# افترضنا img001.jpg موجود، narration.mp3 موجود، logo.png موجود
+ffmpeg -y -loop 1 -i ${TMP}/img001.jpg -i ${TMP}/narration.mp3 -i ${TMP}/bg_music.mp3 \
+ -filter_complex "[0:v]scale=1080:1920,zoompan=z='min(zoom+0.0012,1.3)':d=125:s=1080x1920,fade=t=in:st=0:d=0.5,fade=t=out:st=3.5:d=0.5[v];[1:a]acompressor,volume=1.1[a];[2:a]volume=0.12[a2];[a][a2]amix=inputs=2:duration=first[aout]" \
+ -map "[v]" -map "[aout]" -c:v libx264 -c:a aac -b:a 192k -shortest ${TMP}/final_output.mp4
+# overlay logo
+ffmpeg -y -i ${TMP}/final_output.mp4 -i ${TMP}/logo.png -filter_complex "overlay=W-w-20:H-h-20" -c:a copy ${TMP}/final_with_logo.mp4
+echo "${TMP}/final_with_logo.mp4"

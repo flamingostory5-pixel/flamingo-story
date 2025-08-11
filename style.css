@@ -1,0 +1,66 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fdf6f0, #ffe4ec);
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    animation: fadeBackground 6s ease infinite alternate;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.highlight {
+    color: #ff4081;
+}
+
+a {
+    color: #ff4081;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 1.5s ease forwards;
+}
+
+.slide-up:nth-of-type(2) {
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeBackground {
+    0% {
+        background: linear-gradient(135deg, #fdf6f0, #ffe4ec);
+    }
+    100% {
+        background: linear-gradient(135deg, #ffe4ec, #fdf6f0);
+    }
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ff8aa0"/>
+      <stop offset="100%" stop-color="#ffb86b"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="90" fill="url(#g)" opacity="0.95"/>
+  <path d="M60 120 C70 95, 110 95, 120 120 C115 115, 105 110, 95 110 C85 110, 75 115, 60 120 Z" fill="white" opacity="0.95"/>
+  <text x="100" y="170" font-family="Poppins, Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle">FLAMINGO STORY</text>
+</svg>

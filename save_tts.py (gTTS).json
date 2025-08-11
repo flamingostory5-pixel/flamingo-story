@@ -1,0 +1,6 @@
+from gtts import gTTS
+import sys, os
+text = sys.argv[1]
+out = sys.argv[2] if len(sys.argv)>2 else "narration.mp3"
+gTTS(text, lang='ar', slow=False).save(out)
+print(out)

@@ -1,0 +1,181 @@
+{
+  "name": "Telegram Bot Control",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": "message,callback_query"
+      },
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "Telegram API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json[\"message\"][\"chat\"][\"id\"] || $json[\"callback_query\"][\"message\"][\"chat\"][\"id\"]}}",
+        "text": "اختر الإجراء:",
+        "additionalFields": {
+          "reply_markup": "{\"inline_keyboard\":[[{\"text\":\"▶️ Start\",\"callback_data\":\"start\"},{\"text\":\"⏹ Stop\",\"callback_data\":\"stop\"},{\"text\":\"✏️ Edit\",\"callback_data\":\"edit\"}]]}"
+        }
+      },
+      "name": "Send Menu",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "Telegram API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "value1": "={{$json[\"callback_query\"][\"data\"]}}"
+      },
+      "name": "Get Callback Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "value1": "={{$json[\"data\"]}}",
+        "rules": {
+          "rules": [
+            {
+              "operation": "equal",
+              "value2": "start"
+            },
+            {
+              "operation": "equal",
+              "value2": "stop"
+            },
+            {
+              "operation": "equal",
+              "value2": "edit"
+            }
+          ]
+        }
+      },
+      "name": "Switch Action",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json[\"callback_query\"][\"message\"][\"chat\"][\"id\"]}}",
+        "text": "✅ تم تشغيل النظام!"
+      },
+      "name": "Send Start Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [1250, 200],
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "Telegram API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json[\"callback_query\"][\"message\"][\"chat\"][\"id\"]}}",
+        "text": "🛑 تم إيقاف النظام!"
+      },
+      "name": "Send Stop Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [1250, 300],
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "Telegram API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json[\"callback_query\"][\"message\"][\"chat\"][\"id\"]}}",
+        "text": "✏️ تم تفعيل وضع التعديل!"
+      },
+      "name": "Send Edit Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [1250, 400],
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "Telegram API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Menu": {
+      "main": [
+        [
+          {
+            "node": "Get Callback Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Callback Data": {
+      "main": [
+        [
+          {
+            "node": "Switch Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Action": {
+      "main": [
+        [
+          {
+            "node": "Send Start Reply",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Stop Reply",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Edit Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
