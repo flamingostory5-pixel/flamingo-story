@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fefefe;
+            margin: 0;
+            padding: 20px;
+        }
+        .media {
+            margin-bottom: 20px;
+        }
+        video, img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="media-container"></div>
+
+<script>
+    const items = [
+        { type: 'video', src: 'video1.mp4' },
+        { type: 'image', src: 'image1.jpg' }
+    ];
+
+    const container = document.getElementById('media-container');
+
+    items.forEach(item => {
+        const mediaHTML = item.type === 'video'
+            ? `<video controls src="${item.src}"></video>`
+            : `<img src="${item.src}" alt="media">`;
+
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('media');
+        wrapper.innerHTML = mediaHTML;
+        container.appendChild(wrapper);
+    });
+</script>
+
+</body>
+</html>

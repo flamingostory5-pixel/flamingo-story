@@ -1,0 +1,135 @@
+# PowerShell Script to generate an animated particles background with Flamingo logo
+
+# اسم الملف
+$htmlFile = "$PSScriptRoot\flamingo.html"
+
+# محتوى صفحة HTML
+$htmlContent = @"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flamingo</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000 url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+      background-size: cover;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 4em;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      color: #ff4081;
+      z-index: 10;
+    }
+    .logo img {
+      width: 80px;
+      height: auto;
+      margin-right: 15px;
+      transition: transform 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+  <div class="logo">
+    <img id="flamingoLogo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Flamingo_icon.svg/1024px-Flamingo_icon.svg.png" alt="Flamingo">
+    Flamingo
+  </div>
+
+  <script>
+    // Particles Animation
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const mouse = {
+      x: null,
+      y: null
+    };
+
+    window.addEventListener('mousemove', function(event){
+      mouse.x = event.x;
+      mouse.y = event.y;
+    });
+
+    class Particle {
+      constructor(x, y, size, color, velocity){
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.color = color;
+        this.velocity = velocity;
+      }
+      draw(){
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+      update(){
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+
+        if(this.x < 0 || this.x > canvas.width) this.velocity.x *= -1;
+        if(this.y < 0 || this.y > canvas.height) this.velocity.y *= -1;
+
+        this.draw();
+      }
+    }
+
+    function init(){
+      particlesArray = [];
+      for(let i = 0; i < 150; i++){
+        const size = Math.random() * 3;
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const velocity = {x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2};
+        particlesArray.push(new Particle(x, y, size, '#ff4081', velocity));
+      }
+    }
+
+    function animate(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for(let i = 0; i < particlesArray.length; i++){
+        particlesArray[i].update();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    // Flamingo Logo Follows Mouse
+    const logo = document.getElementById("flamingoLogo");
+    document.addEventListener("mousemove", (e) => {
+      logo.style.transform = `translate(-50%, -50%) translate(${(e.clientX - window.innerWidth/2) / 20}px, ${(e.clientY - window.innerHeight/2) / 20}px)`;
+    });
+  </script>
+</body>
+</html>
+"@
+
+# حفظ الملف
+Set-Content -Path $htmlFile -Value $htmlContent -Encoding UTF8
+
+# فتح الملف في المتصفح
+Start-Process $htmlFile

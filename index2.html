@@ -1,0 +1,159 @@
+# FLAMINGO.ps1
+# سكريبت لتشغيل واجهة FLAMINGO كاملة من PowerShell
+
+# 1) إنشاء مجلد للمشروع
+$projectPath = "$PSScriptRoot\FLAMINGO_UI"
+if (-Not (Test-Path $projectPath)) {
+    New-Item -ItemType Directory -Path $projectPath | Out-Null
+}
+
+# 2) HTML + CSS + JS محتوى الموقع
+$htmlContent = @"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FLAMINGO</title>
+  <style>
+    body {
+      margin:0;
+      height:100vh;
+      background:#000 url('https://www.transparenttextures.com/patterns/stardust.png');
+      overflow:hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    canvas {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      display:block;
+    }
+
+    .title {
+      position:absolute;
+      top:40%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      color:#fff;
+      font-size:5rem;
+      font-weight:bold;
+      text-shadow:0 0 15px rgba(255,0,150,0.8);
+      display:flex;
+      align-items:center;
+      gap:20px;
+    }
+
+    .logo {
+      width:100px;
+      transition:transform 0.2s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+  <div class="title">
+    <img src="https://i.ibb.co/jD8M6xF/flamingo.png" class="logo" id="flamingoLogo" />
+    FLAMINGO
+  </div>
+
+  <script>
+    // Particles Background
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray = [];
+    const numberOfParticles = 120;
+
+    class Particle {
+      constructor(x,y,size,color) {
+        this.x=x;
+        this.y=y;
+        this.size=size;
+        this.color=color;
+        this.speedX=(Math.random()*3)-1.5;
+        this.speedY=(Math.random()*3)-1.5;
+      }
+      update(){
+        this.x+=this.speedX;
+        this.y+=this.speedY;
+        if(this.size>0.2) this.size-=0.02;
+      }
+      draw(){
+        ctx.fillStyle=this.color;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    function init(){
+      particlesArray=[];
+      for(let i=0;i<numberOfParticles;i++){
+        const x=Math.random()*canvas.width;
+        const y=Math.random()*canvas.height;
+        const size=(Math.random()*5)+1;
+        const color="rgba(255,255,255,0.8)";
+        particlesArray.push(new Particle(x,y,size,color));
+      }
+    }
+
+    function handleParticles(){
+      for(let i=0;i<particlesArray.length;i++){
+        const p=particlesArray[i];
+        p.update();
+        p.draw();
+        for(let j=i;j<particlesArray.length;j++){
+          const dx=p.x-particlesArray[j].x;
+          const dy=p.y-particlesArray[j].y;
+          const dist=Math.sqrt(dx*dx+dy*dy);
+          if(dist<100){
+            ctx.beginPath();
+            ctx.strokeStyle="rgba(255,255,255,0.2)";
+            ctx.lineWidth=0.5;
+            ctx.moveTo(p.x,p.y);
+            ctx.lineTo(particlesArray[j].x,particlesArray[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      handleParticles();
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    window.addEventListener("resize",()=>{
+      canvas.width=window.innerWidth;
+      canvas.height=window.innerHeight;
+      init();
+    });
+
+    // Flamingo logo follows mouse
+    const flamingoLogo=document.getElementById("flamingoLogo");
+    document.addEventListener("mousemove",(e)=>{
+      const x=(e.clientX/window.innerWidth-0.5)*40;
+      const y=(e.clientY/window.innerHeight-0.5)*40;
+      flamingoLogo.style.transform=`translate(${x}px, ${y}px) scale(1.1)`;
+    });
+  </script>
+</body>
+</html>
+"@
+
+# 3) حفظ ملف HTML
+$htmlPath = Join-Path $projectPath "index.html"
+Set-Content -Path $htmlPath -Value $htmlContent -Encoding UTF8
+
+# 4) فتح المشروع في المتصفح
+Start-Process $htmlPath

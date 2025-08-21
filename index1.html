@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FLAMINGO — The Brand</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#06070b;
+      --panel:#0f1720;
+      --muted:#9aa3ad;
+      --flamingo1:#ff6f91;
+      --flamingo2:#ffb69a;
+      --glass: rgba(255,255,255,0.02);
+      --accent-shadow: 0 12px 36px rgba(255,111,145,0.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#eef2f7;background:
+      radial-gradient(800px 300px at 10% 10%, rgba(255,111,145,0.03), transparent 6%),
+      radial-gradient(900px 320px at 85% 85%, rgba(255,182,154,0.02), transparent 8%),
+      linear-gradient(180deg,var(--bg) 0%, #07101a 60%);}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+
+    /* NAV */
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;position:sticky;top:0;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter:blur(6px);border-radius:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:64px;height:64px;display:block}
+    .brand-title{font-weight:700;font-size:18px;letter-spacing:0.6px}
+    .nav-right{display:flex;gap:10px;align-items:center}
+
+    /* hero */
+    .hero{display:flex;gap:28px;align-items:center;padding:36px 0}
+    @media(max-width:900px){.hero{flex-direction:column;text-align:center}}
+    .hero-left{flex:1}
+    .title{font-size:36px;margin:0 0 8px}
+    .subtitle{color:var(--muted);margin:0 0 18px;max-width:72%}
+    @media(max-width:900px){.subtitle{max-width:100%}}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start}
+    @media(max-width:900px){.actions{justify-content:center}}
+    .btn{padding:12px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+    .btn-primary{background:linear-gradient(90deg,var(--flamingo1),var(--flamingo2));color:white;box-shadow:var(--accent-shadow);transition:transform .12s}
+    .btn-primary:active{transform:translateY(2px)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+
+    .hero-right{width:420px}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));border-radius:14px;padding:12px;box-shadow:0 12px 40px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.02)}
+    .panel .label{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .panel .media{width:100%;height:260px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#0c161a,#071017);display:flex;align-items:center;justify-content:center}
+    .panel .media img{width:100%;height:100%;object-fit:cover}
+    .panel h3{margin:10px 0 6px}
+    .panel p{color:var(--muted);margin:0}
+
+    /* channels grid */
+    .channels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+    @media(max-width:1100px){.channels{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:800px){.channels{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.channels{grid-template-columns:1fr}}
+    .channel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;box-shadow:0 10px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.02);transition:transform .16s, box-shadow .16s;cursor:pointer}
+    .channel:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,0.6)}
+    .channel .ch-title{font-weight:700;color:#fff}
+    .channel .ch-desc{color:var(--muted);font-size:14px}
+    .channel .ch-action{margin-top:auto;align-self:stretch}
+
+    /* footer */
+    footer{margin-top:36px;padding:26px;border-top:1px solid rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center;gap:12px}
+    @media(max-width:700px){footer{flex-direction:column;text-align:center}}
+    .socials a{margin-left:10px;color:var(--muted)}
+
+    /* small animations */
+    .float{animation:floaty 4s ease-in-out infinite}
+    @keyframes floaty{0%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}100%{transform:translateY(0) rotate(-1deg)}}
+
+    /* pressed visual */
+    .pressable{transition:transform .08s ease, box-shadow .08s;will-change:transform}
+    .pressable:active{transform:translateY(2px) scale(.998);box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- NAV -->
+    <div class="nav" role="navigation" aria-label="Main navigation">
+      <div class="brand" aria-hidden="false">
+        <!-- Flamingo logo SVG -->
+        <svg class="logo float" width="64" height="64" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-label="FLAMINGO logo">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#ff8aa0"/>
+              <stop offset="1" stop-color="#ffb86b"/>
+            </linearGradient>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- body -->
+          <path d="M30 120 C36 95, 58 80, 82 82 C95 70, 118 70, 132 82 C140 92,140 108,132 116 C122 125,106 128,92 126 C82 124,70 120,54 118 C42 117,34 121,30 120 Z" fill="url(#g)" filter="url(#glow)"/>
+          <!-- neck -->
+          <path d="M106 46 C112 58,114 70,104 78" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- beak -->
+          <path d="M104 46 C112 44,118 48,120 56" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
+        </svg>
+
+        <div>
+          <div class="brand-title">FLAMINGO</div>
+          <div style="font-size:12px;color:var(--muted)">Brand Hub — واجهة جميع قنوات الفلامينجو</div>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <div style="font-size:13px;color:var(--muted);margin-left:8px">تابعنا</div>
+        <div class="socials" aria-hidden="false">
+          <a href="#" title="YouTube" target="_blank">YouTube</a>
+          <a href="#" title="TikTok" target="_blank">TikTok</a>
+          <a href="#" title="Instagram" target="_blank">Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="main-title">
+      <div class="hero-left">
+        <h1 id="main-title" class="title">مرحبا في FLAMINGO</h1>
+        <p class="subtitle lead">بوابة براند الفلامينجو — هنا تجمع قنواتنا المتنوعة: قصص، ترفيه، نصائح حياتية، ومحتوى متخصّص آخر. كل قناة لها طابعها، وكلها تحت اسم واحد تقدر تثق فيه.</p>
+
+        <div class="actions" role="group" aria-label="Channels">
+          <button class="btn btn-primary pressable" onclick="openChannel('stories')">قناة القصص والمواقف</button>
+          <button class="btn btn-primary pressable" onclick="openChannel('advice')">قناة النصائح الحياتية</button>
+          <button class="btn btn-primary pressable" onclick="openChannel('entertain')">قناة الترفيه</button>
+          <button class="btn btn-ghost pressable" onclick="openChannel('more')">مشاريع أخرى</button>
+        </div>
+
+        <div style="margin-top:20px;color:var(--muted);font-size:14px">
+          <strong>معلومة مهمة:</strong> محتوى القنوات مركّز على قيمة المشاهد — ستجد مزيجاً من قصص موجزة، نصائح عملية، ومحتوى ترفيهي متوازن.
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="panel" role="region" aria-label="Latest preview">
+          <div class="label preview-label">أحدث عرض</div>
+          <div class="media" id="preview">
+            <!-- placeholder art -->
+            <svg width="100%" height="100%" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="placeholder">
+              <rect width="100%" height="100%" fill="#07121a"/>
+              <text x="50%" y="50%" fill="#86939f" font-family="Poppins, Arial" font-size="20" text-anchor="middle" dominant-baseline="middle">لا توجد معاينات حالياً</text>
+            </svg>
+          </div>
+          <h3 id="preview-title" style="margin-top:12px">مرحباً بك في FLAMINGO</h3>
+          <p id="preview-desc" style="color:var(--muted);margin:0">اختر قناة للعرض أو تابع حساباتنا لمشاهدة المحتوى الجديد.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHANNELS GRID -->
+    <section style="margin-top:18px">
+      <div class="channels" id="channels-grid" aria-live="polite">
+        <div class="channel pressable" onclick="openChannel('stories')">
+          <div style="display:flex;align-items:center;gap:10px">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v10H4z" stroke="#ffb6a5" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <div class="ch-title">القصص & المواقف</div>
+              <div class="ch-desc">قصص قصيرة ومواقف حقيقية تُعلم وتُلهم.</div>
+            </div>
+          </div>
+          <div class="ch-action" style="margin-top:12px;text-align:left">
+            <button class="btn btn-primary" onclick="openChannel('stories'); event.stopPropagation()">ادخل القناة</button>
+          </div>
+        </div>
+
+        <div class="channel pressable" onclick="openChannel('advice')">
+          <div style="display:flex;align-items:center;gap:10px">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20v-8" stroke="#ffb6a5" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 12l6-9 6 9" stroke="#ffb6a5" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <div class="ch-title">نصائح حياتية</div>
+              <div class="ch-desc">حلول بسيطة وعملية لتحديات يومية.</div>
+            </div>
+          </div>
+          <div class="ch-action" style="margin-top:12px;text-align:left">
+            <button class="btn btn-primary" onclick="openChannel('advice'); event.stopPropagation()">تصفح النصائح</button>
+          </div>
+        </div>
+
+        <div class="channel pressable" onclick="openChannel('entertain')">
+          <div style="display:flex;align-items:center;gap:10px">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#ffb6a5" stroke-width="1.2"/></svg>
+            <div>
+              <div class="ch-title">ترفيه & كوميكس</div>
+              <div class="ch-desc">مقاطع خفيفة وممتعة لرفع المزاج.</div>
+            </div>
+          </div>
+          <div class="ch-action" style="margin-top:12px;text-align:left">
+            <button class="btn btn-primary" onclick="openChannel('entertain'); event.stopPropagation()">شاهد الآن</button>
+          </div>
+        </div>
+
+        <div class="channel pressable" onclick="openChannel('more')">
+          <div style="display:flex;align-items:center;gap:10px">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16" stroke="#ffb6a5" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <div>
+              <div class="ch-title">مشاريع أخرى</div>
+              <div class="ch-desc">سلاسل وقنوات متخصصة قيد الإعداد.</div>
+            </div>
+          </div>
+          <div class="ch-action" style="margin-top:12px;text-align:left">
+            <button class="btn btn-ghost" onclick="openChannel('more'); event.stopPropagation()">استكشف</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <strong>FLAMINGO</strong>
+        <div style="color:var(--muted);font-size:13px">واجهة براند موحّد لجميع قنوات الفلامينجو</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="#" target="_blank" class="pressable">YouTube</a>
+        <a href="#" target="_blank" class="pressable">TikTok</a>
+        <a href="#" target="_blank" class="pressable">Instagram</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // simple interactions
+    function openChannel(id){
+      // replace with your real links or navigation logic
+      const map = {
+        stories: 'https://t.me/YourStoriesChannel',
+        advice: 'https://t.me/YourAdviceChannel',
+        entertain: 'https://t.me/YourEntertainmentChannel',
+        more: 'https://t.me/YourMainChannel'
+      };
+      const url = map[id] || '#';
+      if(url === '#') {
+        // simple in-page feedback
+        alert('قريباً — سيتم تفعيل القناة هنا.');
+        return;
+      }
+      window.open(url, '_blank');
+    }
+
+    // preview and interactive feel (demo)
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // subtle logo float
+      const logo = document.querySelector('.logo');
+      // preview sample (replace with dynamic later)
+      const previewTitle = document.getElementById('preview-title');
+      const previewDesc = document.getElementById('preview-desc');
+      previewTitle.textContent = 'أول إصدار قناتنا';
+      previewDesc.textContent = 'تابع قناتنا لمشاهدة أولى الحلقات والمقاطع.';
+    });
+  </script>
+</body>
+</html>
